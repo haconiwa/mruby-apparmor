@@ -1,0 +1,6 @@
+name: mruby-apparmor
+description: AppArmor class
+author: Uchio Kondo
+website: https://github.com/haconiwa/mruby-apparmor
+protocol: git
+repository: https://github.com/haconiwa/mruby-apparmor.git
