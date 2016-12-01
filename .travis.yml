@@ -1,3 +1,5 @@
+dist: trusty
+
 language: c
 compiler:
   - gcc
@@ -11,10 +13,14 @@ matrix:
 branches:
   only:
     - master
+addons:
+  apt:
+    packages:
+      - rake
+      - bison
+      - git
+      - gperf
+      - autotools-dev
 
-before_install:
-  - sudo apt-get -qq update
-install:
-  - sudo apt-get -qq install rake bison git gperf
 script:
   - rake test
