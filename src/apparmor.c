@@ -65,7 +65,7 @@ static mrb_value mrb_apparmor_change_onexec(mrb_state *mrb, mrb_value self)
   char *profile_name;
   int ret;
 
-  mrb_get_args("z", &profile_name);
+  mrb_get_args(mrb, "z", &profile_name);
   ret = aa_change_onexec(profile_name);
   if(ret < 0) {
     mrb_sys_fail(mrb, "aa_change_onexec failed");
