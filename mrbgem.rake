@@ -61,6 +61,7 @@ MRuby::Gem::Specification.new('mruby-apparmor') do |spec|
 
     self.cc.include_paths << File.dirname(apparmor_header(build))
     self.linker.library_paths << File.dirname(libapparmor_a(build))
+    self.linker.libraries << 'pthread'
     self.linker.libraries << 'apparmor'
   end
 
