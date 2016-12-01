@@ -23,9 +23,10 @@ MRuby::Gem::Specification.new('mruby-apparmor') do |spec|
     version = AppArmor::APPARMOR_VERSION
     tarball_url = "https://launchpad.net/apparmor/2.11/2.11.beta1/+download/apparmor-#{version}.tar.gz"
 
-    def apparmor_dir(b); "#{b.build_dir}/vendor/libapparmor"; end
+    def apparmor_dir(b); "#{b.build_dir}/vendor/apparmor"; end
+    def libapparmor_dir(b); "#{apparmor_dir(b)}/libraries/libapparmor"; end
     def apparmor_objs_dir(b); "#{apparmor_dir(b)}/.objs"; end
-    def apparmor_header(b); "#{apparmor_dir(b)}/include/apparmor.h"; end
+    def apparmor_header(b); "#{libapparmor_dir(b)}/include/apparmor.h"; end
     def libapparmor_a(b); libfile "#{apparmor_objs_dir(b)}/lib/libapparmor"; end
 
     task :clean do
@@ -33,12 +34,12 @@ MRuby::Gem::Specification.new('mruby-apparmor') do |spec|
     end
 
     file apparmor_header(build) do
-      unless File.exist? apparmor_dir(build)
+      unless File.exist? libapparmor_dir(build)
         tmpdir = '/tmp'
         run_command ENV, "rm -rf #{tmpdir}/apparmor-#{version}"
         run_command ENV, "mkdir -p #{File.dirname(apparmor_dir(build))}"
         run_command ENV, "curl -L #{tarball_url} | tar -xz -f - -C #{tmpdir}"
-        run_command ENV, "mv -f #{tmpdir}/apparmor-#{version}/libraries/libapparmor #{apparmor_dir(build)}"
+        run_command ENV, "mv -f #{tmpdir}/apparmor-#{version} #{apparmor_dir(build)}"
       end
     end
 
@@ -46,7 +47,7 @@ MRuby::Gem::Specification.new('mruby-apparmor') do |spec|
       sh "mkdir -p #{apparmor_objs_dir(build)}"
 
       unless File.exist?(libapparmor_a(build))
-        Dir.chdir apparmor_dir(build) do
+        Dir.chdir libapparmor_dir(build) do
           run_command ENV, "test -f ./configure || sh ./autogen.sh"
           run_command ENV, "./configure --enable-static --disable-shared --prefix=#{apparmor_objs_dir(build)}"
           run_command ENV, "make"
