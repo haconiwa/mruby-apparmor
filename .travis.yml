@@ -29,7 +29,7 @@ addons:
 
 install:
   - mkdir ~/src
-  - cd ~/src && wget http://git.savannah.gnu.org/cgit/automake.git/snapshot/automake-1.15.tar.gz && tar xzf automake-1.15.tar.gz
-  - cd ~/src/automake-1.15 && ./bootstrap.sh && ./configure --prefix=/usr && make && sudo make install
+  - cd ~/src && wget http://git.savannah.gnu.org/cgit/automake.git/snapshot/automake-1.15.tar.gz && tar xzf automake-1.15.tar.gz && cd -
+  - cd ~/src/automake-1.15 && ./bootstrap.sh && ./configure --prefix=/usr && make && sudo make install && cd -
 script:
   - rake test
