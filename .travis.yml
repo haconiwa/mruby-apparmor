@@ -22,7 +22,7 @@ addons:
       - bison
       - git
       - gperf
-      - aclocal
+      # - aclocal
       - automake
       - autoconf
       - autotools-dev
