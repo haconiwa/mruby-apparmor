@@ -1,5 +1,7 @@
 module AppArmor
-  APPARMOR_VERSION = "2.10.95"
+  unless AppArmor.const_defined? :APPARMOR_VERSION
+    APPARMOR_VERSION = "2.10.95"
+  end
 end
 
 require 'fileutils'
